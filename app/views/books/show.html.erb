@@ -1,0 +1,37 @@
+<p id="notice"><%= flash[:notice] %></p>
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'list' ,book: Book.new, user: @users %>
+    </div>
+    <div class="col-md-8 offset-md-1"><!--offsetで右に移動-->
+      <h2>Book detail</h2>
+      <table class="table table-hover table-inverse">
+        <tbody>
+          <tr>
+            <td>
+              <%= image_tag @users.get_profile_image(100,100) %></br>
+              <%= link_to user_path(@book.user_id) do %>
+                <%= @book.user.name %>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to book_path(@book.id) do %>
+                <%= @book.title %>
+              <% end %>
+            </td>
+            <td><%= @book.body %></td>
+            <% if @book.user == current_user %>
+            <td>
+              <%= link_to "Edit", edit_book_path(@book), class:'btn btn-sm btn-success edit_book' %>
+            </td>
+            <td>
+              <%= link_to "Destroy", book_path(@book), method: :delete, class:'btn btn-sm btn-danger destroy_book' %>
+            </td>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
